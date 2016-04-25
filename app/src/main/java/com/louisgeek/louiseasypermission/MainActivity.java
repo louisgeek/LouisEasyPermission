@@ -21,6 +21,41 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
+/**
+ * 新的运行时权限检测机制仅作用于TargetSdkVersion大于等于23的情况
+ * <p>
+ * 新的权限机制将权限分为普通权限和危险权限，仅危险权限需要通过代码动态去申请。
+ * <p>
+ * 危险权限包括:
+ * <p>
+ * 身体传感器
+ * 日历
+ * 摄像头
+ * 通讯录
+ * 地理位置
+ * 麦克风
+ * 电话
+ * 短信
+ * 存储空间
+ * <p>
+ * CALENDAR : READ_CALENDAR WRITE_CALENDAR
+ * <p>
+ * CAMERA : CAMERA
+ * <p>
+ * CONTACTS : READ_CONTACTS WRITE_CONTACTS GET_ACCOUNTS
+ * <p>
+ * LOCATION : ACCESS_FINE_LOCATION ACCESS_COARSE_LOCATION
+ * <p>
+ * MICROPHONE : RECORD_AUDIO
+ * <p>
+ * PHONE : READ_PHONE_STATE CALL_PHONE READ_CALL_LOG WRITE_CALL_LOG ADD_VOICEMAIL USE_SIP PROCESS_OUTGOING_CALLS
+ * <p>
+ * SENSORS :  BODY_SENSORS
+ * <p>
+ * SMS :  SEND_SMS  RECEIVE_SMS READ_SMS RECEIVE_WAP_PUSH RECEIVE_MMS
+ * <p>
+ * STORAGE : READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -40,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+        /**【新方案】*/
     private EasyPermission mEasyPermission;
     private void checkPermissionNew() {
         if(mEasyPermission == null){
@@ -68,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**调用EasyPermission#handleResult分发结果*/
+    /**【新方案】调用EasyPermission#handleResult分发结果*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -78,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**传统方案*/
+    /**【传统方案】*/
     private void checkPermissionOld(){
         //1. 检查我们是否有权限
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -112,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             writeFile();
         }
     }
-
+    /**【传统方案】*/
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -140,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }).show();
-                    //....
+
 
                 }
                 return;
