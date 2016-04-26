@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onPermissionDenied(List<String> deniedPermissions) {
                     Toast.makeText(MainActivity.this, "一些被拒绝的权限:\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                 }
-            }).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
+            }).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE,Manifest.permission.CAMERA)
                     .rationalMessage("若想使用此功能，必须给我权限")
                     .deniedMessage("您没有授予我权限，功能将不能正常使用。你可以去设置页面重新授予权限")
                     .settingBtn(true)
